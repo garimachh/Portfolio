@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Garima Chhetry — Graphic Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,700;0,900;1,300;1,700&family=Caveat:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root {
+  --yellow:  #FBB45E;
+  --blue:    #353B56;
+  --taupe:   #7D7585;
+  --sand:    #C99379;
+  --dark:    #251211;
+  --cream:   #F5EDE0;
+  --red:     #8B2A1A;
+  --grid-line: rgba(53,59,86,0.12);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--dark);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── CURSOR ── */
+.cur { width:14px; height:14px; background:var(--blue); border-radius:50%; position:fixed; top:0;left:0; pointer-events:none; z-index:9999; transition:transform .1s; mix-blend-mode:multiply; }
+.cur-r { width:38px; height:38px; border:2px solid var(--yellow); border-radius:50%; position:fixed; top:0;left:0; pointer-events:none; z-index:9998; transition:all .35s cubic-bezier(.23,1,.32,1); }
+
+/* ── GRID TEXTURE ── */
+.grid-bg {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 20px; left:50%; transform:translateX(-50%);
+  z-index:100;
+  background: var(--cream);
+  border: 2px solid var(--blue);
+  border-radius: 60px;
+  padding: 10px 8px;
+  display:flex; gap:4px;
+  box-shadow: 4px 4px 0 var(--blue);
+}
+nav a {
+  font-family:'DM Sans',sans-serif; font-size:.78rem; font-weight:500;
+  letter-spacing:.06em; text-transform:lowercase;
+  text-decoration:none; color:var(--dark);
+  padding: 8px 22px; border-radius:40px;
+  transition: background .2s, color .2s;
+}
+nav a:hover, nav a.active { background:var(--blue); color:var(--yellow); }
+
+/* ── DECO ELEMENTS ── */
+.star { display:inline-block; font-size:1.4rem; animation:spin 8s linear infinite; }
+.star.red { color:var(--red); }
+.star.blue { color:var(--blue); }
+.star.yellow { color:var(--yellow); }
+@keyframes spin { to { transform:rotate(360deg); } }
+
+.squiggle {
+  position:absolute; pointer-events:none;
+  font-family:'Caveat',cursive; font-size:1.1rem; color:var(--taupe);
+  transform:rotate(-8deg);
+}
+
+/* ── SECTION WRAPPER ── */
+section { padding: 100px 40px 80px; position:relative; }
+
+/* ══════════════════════════════════
+   HERO
+══════════════════════════════════ */
+#hero {
+  min-height:100vh;
+  background-color: var(--yellow);
+  background-image:
+    linear-gradient(rgba(251,180,94,0.0) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(251,180,94,0.0) 1px, transparent 1px),
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 36px 36px;
+  display:flex; flex-direction:column;
+  justify-content:center; align-items:center;
+  text-align:center;
+  padding-top:100px;
+  overflow:hidden;
+}
+
+.hero-tag {
+  background:var(--blue); color:var(--yellow);
+  font-family:'DM Sans',sans-serif; font-size:.72rem; font-weight:500;
+  letter-spacing:.2em; text-transform:uppercase;
+  padding:8px 20px; border-radius:40px;
+  margin-bottom:28px;
+  animation: popIn .6s .2s cubic-bezier(.34,1.56,.64,1) both;
+}
+
+.hero-name {
+  font-family:'Fraunces',serif; font-weight:900;
+  font-size:clamp(4.5rem, 13vw, 12rem);
+  line-height:.88; letter-spacing:-.03em;
+  color:var(--dark);
+  animation: popIn .8s .4s cubic-bezier(.34,1.56,.64,1) both;
+}
+.hero-name span { color:var(--blue); font-style:italic; }
+
+.hero-sub {
+  font-family:'Caveat',cursive; font-size:1.6rem; color:var(--blue);
+  margin-top:18px;
+  animation: popIn .7s .6s cubic-bezier(.34,1.56,.64,1) both;
+}
+
+.hero-badges {
+  display:flex; flex-wrap:wrap; gap:10px;
+  justify-content:center;
+  margin-top:36px;
+  animation: popIn .7s .8s cubic-bezier(.34,1.56,.64,1) both;
+}
+.badge {
+  border:2px solid var(--dark); border-radius:40px;
+  padding:8px 20px; font-size:.8rem; font-weight:500;
+  background:var(--cream); color:var(--dark);
+  box-shadow:3px 3px 0 var(--dark);
+  transition:transform .2s, box-shadow .2s;
+}
+.badge:hover { transform:translate(-2px,-2px); box-shadow:5px 5px 0 var(--dark); }
+
+/* floating deco stars around hero */
+.hero-deco { position:absolute; font-size:2.2rem; animation:float 3s ease-in-out infinite; }
+.hero-deco.a { top:18%; left:6%; animation-delay:0s; }
+.hero-deco.b { top:14%; right:8%; animation-delay:.6s; }
+.hero-deco.c { bottom:22%; left:4%; animation-delay:1.2s; font-size:1.4rem; }
+.hero-deco.d { bottom:18%; right:6%; animation-delay:.3s; font-size:1.8rem; }
+.hero-deco.e { top:40%; left:2%; animation-delay:.9s; font-size:1.1rem; }
+
+@keyframes float { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-12px) rotate(10deg)} }
+@keyframes popIn { from{opacity:0;transform:scale(.8) translateY(20px)} to{opacity:1;transform:none} }
+
+.hero-scroll {
+  position:absolute; bottom:32px; left:50%; transform:translateX(-50%);
+  font-family:'Caveat',cursive; font-size:1.1rem; color:var(--blue);
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  animation:bounce 2s ease-in-out infinite;
+}
+@keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+
+/* ══════════════════════════════════
+   ABOUT
+══════════════════════════════════ */
+#about {
+  background: var(--cream);
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+.about-inner {
+  max-width:1100px; margin:0 auto;
+  display:grid; grid-template-columns:1fr 1fr; gap:60px;
+  align-items:center;
+}
+
+.about-card {
+  background:var(--blue); border-radius:24px;
+  padding:44px 40px;
+  border:3px solid var(--dark);
+  box-shadow:8px 8px 0 var(--dark);
+  position:relative; overflow:hidden;
+}
+.about-card::before {
+  content:'';
+  position:absolute; top:0;left:0;right:0;bottom:0;
+  background-image:
+    linear-gradient(rgba(251,180,94,.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(251,180,94,.07) 1px, transparent 1px);
+  background-size:28px 28px;
+}
+
+.about-label {
+  font-family:'Caveat',cursive; font-size:1rem; color:var(--yellow);
+  letter-spacing:.1em; margin-bottom:16px; position:relative;
+}
+.about-name-big {
+  font-family:'Fraunces',serif; font-weight:900; font-style:italic;
+  font-size:clamp(2.2rem,4vw,3.5rem); line-height:1;
+  color:var(--yellow); position:relative; margin-bottom:24px;
+}
+.about-text {
+  font-size:.95rem; line-height:1.85; color:rgba(245,237,224,.85);
+  position:relative; margin-bottom:28px;
+}
+
+.about-pills { display:flex; flex-wrap:wrap; gap:8px; position:relative; }
+.pill {
+  background:var(--yellow); color:var(--dark);
+  border-radius:40px; padding:6px 16px;
+  font-size:.75rem; font-weight:500; letter-spacing:.05em;
+}
+
+.about-facts { display:flex; flex-direction:column; gap:20px; }
+
+.fact-card {
+  background:var(--cream); border:2px solid var(--dark);
+  border-radius:16px; padding:22px 24px;
+  box-shadow:4px 4px 0 var(--dark);
+  display:flex; align-items:flex-start; gap:16px;
+  transition:transform .25s, box-shadow .25s;
+}
+.fact-card:hover { transform:translate(-3px,-3px); box-shadow:7px 7px 0 var(--dark); }
+.fact-card:nth-child(2) { margin-left:24px; background:var(--yellow); }
+.fact-card:nth-child(3) { margin-left:12px; }
+
+.fact-icon { font-size:1.8rem; flex-shrink:0; }
+.fact-title { font-family:'Fraunces',serif; font-weight:700; font-size:1rem; margin-bottom:4px; }
+.fact-body { font-size:.82rem; line-height:1.6; color:var(--taupe); }
+
+/* ══════════════════════════════════
+   WORK
+══════════════════════════════════ */
+#work {
+  background:var(--blue);
+  background-image:
+    linear-gradient(rgba(251,180,94,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(251,180,94,.06) 1px, transparent 1px);
+  background-size:36px 36px;
+  color:var(--cream);
+}
+
+.work-top {
+  max-width:1100px; margin:0 auto 60px;
+  display:flex; justify-content:space-between; align-items:flex-end;
+}
+.section-heading {
+  font-family:'Fraunces',serif; font-weight:900;
+  font-size:clamp(2.5rem,6vw,5.5rem); line-height:.9;
+}
+.section-heading em { font-style:italic; color:var(--yellow); }
+.section-heading.light { color:var(--cream); }
+.section-heading.light em { color:var(--yellow); }
+
+.work-filter { display:flex; gap:8px; flex-wrap:wrap; }
+.filter-btn {
+  border:2px solid rgba(251,180,94,.4); border-radius:40px;
+  padding:8px 18px; font-size:.75rem; font-weight:500;
+  color:var(--yellow); background:transparent; cursor:none;
+  letter-spacing:.05em;
+  transition:background .2s, color .2s, border-color .2s;
+}
+.filter-btn:hover, .filter-btn.on { background:var(--yellow); color:var(--dark); border-color:var(--yellow); }
+
+.projects-wrap { max-width:1100px; margin:0 auto; }
+
+.projects-grid {
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:20px;
+}
+
+.proj {
+  border-radius:20px; overflow:hidden;
+  border:2px solid rgba(251,180,94,.25);
+  background:rgba(37,18,17,.4);
+  position:relative; cursor:none;
+  transition:transform .4s cubic-bezier(.23,1,.32,1), box-shadow .4s;
+}
+.proj:hover { transform:translateY(-8px) rotate(-1deg); box-shadow:0 20px 60px rgba(0,0,0,.4); }
+.proj:nth-child(1) { grid-column:span 7; }
+.proj:nth-child(2) { grid-column:span 5; }
+.proj:nth-child(3) { grid-column:span 5; }
+.proj:nth-child(4) { grid-column:span 7; }
+.proj:nth-child(5) { grid-column:span 12; }
+
+.proj-thumb {
+  height:260px; position:relative; overflow:hidden;
+}
+.proj:nth-child(5) .proj-thumb { height:200px; }
+
+/* each card gets a unique sunset gradient */
+.proj:nth-child(1) .proj-thumb { background:linear-gradient(135deg, #FBB45E 0%, #C99379 50%, #353B56 100%); }
+.proj:nth-child(2) .proj-thumb { background:linear-gradient(135deg, #353B56 0%, #251211 60%, #8B2A1A 100%); }
+.proj:nth-child(3) .proj-thumb { background:linear-gradient(160deg, #251211 0%, #C99379 70%, #FBB45E 100%); }
+.proj:nth-child(4) .proj-thumb { background:linear-gradient(135deg, #7D7585 0%, #353B56 50%, #FBB45E 100%); }
+.proj:nth-child(5) .proj-thumb { background:linear-gradient(90deg, #FBB45E 0%, #C99379 30%, #353B56 60%, #251211 100%); }
+
+/* grid overlay on cards */
+.proj-thumb::before {
+  content:''; position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(245,237,224,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(245,237,224,.05) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+
+.proj-thumb-label {
+  position:absolute; top:16px; left:16px;
+  background:var(--yellow); color:var(--dark);
+  font-family:'Bebas Neue',sans-serif; font-size:1.1rem; letter-spacing:.1em;
+  padding:4px 14px; border-radius:6px;
+  border:2px solid var(--dark);
+}
+
+.proj-hover {
+  position:absolute; inset:0;
+  background:rgba(37,18,17,.75);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; transition:opacity .35s;
+}
+.proj:hover .proj-hover { opacity:1; }
+.proj-hover-text {
+  font-family:'Fraunces',serif; font-weight:700; font-style:italic;
+  font-size:1.4rem; color:var(--yellow);
+  border:2px solid var(--yellow); padding:12px 28px; border-radius:12px;
+}
+
+.proj-info { padding:20px 22px; }
+.proj-name {
+  font-family:'Fraunces',serif; font-weight:700; font-size:1.2rem;
+  color:var(--cream); margin-bottom:6px;
+}
+.proj-meta {
+  display:flex; justify-content:space-between; align-items:center;
+}
+.proj-type { font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--yellow); }
+.proj-year { font-family:'Bebas Neue',sans-serif; font-size:1rem; color:var(--taupe); }
+
+/* ══════════════════════════════════
+   SKILLS
+══════════════════════════════════ */
+#skills {
+  background:var(--cream);
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size:36px 36px;
+}
+
+.skills-inner { max-width:1100px; margin:0 auto; }
+.skills-inner .section-heading { margin-bottom:60px; }
+
+.skills-layout { display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+
+.skill-group { display:flex; flex-direction:column; gap:16px; }
+
+.skill-row {
+  display:flex; align-items:center; gap:16px;
+  background:var(--cream); border:2px solid var(--dark);
+  border-radius:14px; padding:18px 22px;
+  box-shadow:4px 4px 0 var(--dark);
+  transition:transform .25s, box-shadow .25s;
+}
+.skill-row:hover { transform:translate(-3px,-3px); box-shadow:7px 7px 0 var(--dark); }
+.skill-row:nth-child(even) { background:var(--blue); border-color:var(--blue); }
+.skill-row:nth-child(even) .skill-label { color:var(--cream); }
+.skill-row:nth-child(even) .skill-bar-wrap { background:rgba(255,255,255,.15); }
+.skill-row:nth-child(even) .skill-bar-fill { background:var(--yellow); }
+
+.skill-emoji { font-size:1.5rem; flex-shrink:0; width:36px; text-align:center; }
+.skill-label { font-family:'Fraunces',serif; font-weight:700; font-size:1rem; width:140px; flex-shrink:0; }
+.skill-bar-wrap { flex:1; height:10px; background:rgba(53,59,86,.15); border-radius:10px; overflow:hidden; }
+.skill-bar-fill { height:100%; border-radius:10px; background:var(--blue); transform-origin:left; animation:barGrow 1.2s cubic-bezier(.23,1,.32,1) both; }
+@keyframes barGrow { from{transform:scaleX(0)} to{transform:scaleX(1)} }
+.skill-pct { font-family:'Bebas Neue',sans-serif; font-size:1.1rem; color:var(--taupe); width:44px; text-align:right; }
+
+.tools-section { margin-top:50px; }
+.tools-section h3 {
+  font-family:'Caveat',cursive; font-size:1.5rem; color:var(--blue);
+  margin-bottom:20px;
+}
+.tools-grid { display:flex; flex-wrap:wrap; gap:12px; }
+.tool-chip {
+  background:var(--dark); color:var(--yellow);
+  font-family:'DM Sans',sans-serif; font-size:.8rem; font-weight:500;
+  padding:10px 20px; border-radius:40px;
+  border:2px solid var(--dark);
+  box-shadow:3px 3px 0 var(--blue);
+  transition:transform .2s, box-shadow .2s;
+}
+.tool-chip:hover { transform:translate(-2px,-2px); box-shadow:5px 5px 0 var(--blue); }
+
+/* ══════════════════════════════════
+   PROCESS
+══════════════════════════════════ */
+#process {
+  background:var(--yellow);
+  background-image:
+    linear-gradient(rgba(53,59,86,.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(53,59,86,.1) 1px, transparent 1px);
+  background-size:36px 36px;
+}
+
+.process-inner { max-width:1100px; margin:0 auto; }
+.process-inner .section-heading { margin-bottom:60px; color:var(--dark); }
+.process-inner .section-heading em { color:var(--blue); }
+
+.steps-row { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; position:relative; }
+.steps-row::before {
+  content:'';
+  position:absolute; top:50px; left:10%; right:10%;
+  height:2px; background:var(--dark);
+  z-index:0;
+}
+
+.step {
+  position:relative; z-index:1;
+  background:var(--cream); border:2px solid var(--dark);
+  border-radius:20px; padding:32px 24px;
+  box-shadow:5px 5px 0 var(--dark);
+  text-align:center;
+  transition:transform .3s, box-shadow .3s;
+}
+.step:hover { transform:translateY(-6px); box-shadow:8px 8px 0 var(--dark); }
+.step:nth-child(even) { background:var(--blue); color:var(--cream); }
+.step:nth-child(even) .step-num { color:var(--yellow); }
+.step:nth-child(even) .step-title { color:var(--cream); }
+.step:nth-child(even) .step-desc { color:rgba(245,237,224,.7); }
+
+.step-num {
+  font-family:'Bebas Neue',sans-serif; font-size:2.5rem;
+  color:var(--blue); line-height:1; margin-bottom:12px;
+}
+.step-emoji { font-size:2rem; margin-bottom:12px; display:block; }
+.step-title {
+  font-family:'Fraunces',serif; font-weight:700; font-size:1.1rem;
+  margin-bottom:10px; color:var(--dark);
+}
+.step-desc { font-size:.82rem; line-height:1.65; color:var(--taupe); }
+
+/* ══════════════════════════════════
+   CONTACT
+══════════════════════════════════ */
+#contact {
+  background:var(--dark);
+  background-image:
+    linear-gradient(rgba(251,180,94,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(251,180,94,.05) 1px, transparent 1px);
+  background-size:36px 36px;
+  color:var(--cream); position:relative; overflow:hidden;
+}
+
+#contact::before {
+  content:'HI!';
+  position:absolute; bottom:-60px; right:-40px;
+  font-family:'Fraunces',serif; font-weight:900;
+  font-size:30vw; color:rgba(251,180,94,.04);
+  line-height:1; pointer-events:none; user-select:none;
+}
+
+.contact-inner { max-width:1100px; margin:0 auto; }
+
+.contact-top { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; margin-bottom:80px; }
+
+#contact .section-heading { color:var(--cream); }
+#contact .section-heading em { color:var(--yellow); }
+
+.contact-blurb {
+  font-family:'Caveat',cursive; font-size:1.4rem;
+  color:var(--sand); line-height:1.6; margin-bottom:36px;
+}
+
+.contact-links { display:flex; flex-direction:column; gap:16px; }
+.contact-link {
+  display:flex; align-items:center; gap:20px;
+  padding:20px 24px;
+  border:2px solid rgba(251,180,94,.25);
+  border-radius:16px;
+  text-decoration:none; color:var(--cream);
+  transition:border-color .3s, background .3s, transform .3s;
+}
+.contact-link:hover {
+  border-color:var(--yellow);
+  background:rgba(251,180,94,.08);
+  transform:translateX(8px);
+}
+.contact-link-icon { font-size:1.5rem; }
+.contact-link-label { font-size:.7rem; letter-spacing:.15em; text-transform:uppercase; color:var(--taupe); }
+.contact-link-val { font-family:'Fraunces',serif; font-size:1.1rem; }
+
+/* big CTA card */
+.contact-cta-card {
+  background:var(--yellow); color:var(--dark);
+  border:3px solid var(--dark); border-radius:24px;
+  padding:48px 40px; text-align:center;
+  box-shadow:8px 8px 0 var(--blue);
+  position:relative;
+}
+.cta-title {
+  font-family:'Fraunces',serif; font-weight:900; font-style:italic;
+  font-size:clamp(2rem,4vw,3.5rem); line-height:1;
+  margin-bottom:16px;
+}
+.cta-sub {
+  font-family:'Caveat',cursive; font-size:1.2rem;
+  margin-bottom:32px; color:var(--blue);
+}
+.cta-btn {
+  display:inline-block;
+  background:var(--dark); color:var(--yellow);
+  font-family:'Fraunces',serif; font-weight:700; font-size:1.1rem;
+  padding:16px 48px; border-radius:12px;
+  text-decoration:none;
+  border:2px solid var(--dark);
+  box-shadow:5px 5px 0 var(--blue);
+  transition:transform .25s, box-shadow .25s;
+}
+.cta-btn:hover { transform:translate(-3px,-3px); box-shadow:8px 8px 0 var(--blue); }
+
+/* floating deco on contact */
+.contact-star-a { position:absolute; top:60px; right:60px; font-size:3rem; animation:float 4s ease-in-out infinite; }
+.contact-star-b { position:absolute; bottom:100px; left:60px; font-size:2rem; animation:float 3s 1s ease-in-out infinite; }
+
+/* ── FOOTER ── */
+footer {
+  background:var(--dark);
+  border-top:2px solid rgba(251,180,94,.15);
+  padding:28px 40px;
+  display:flex; justify-content:space-between; align-items:center;
+}
+footer p { font-size:.75rem; color:var(--taupe); letter-spacing:.08em; }
+.footer-name {
+  font-family:'Fraunces',serif; font-weight:700; font-style:italic;
+  font-size:1.1rem; color:var(--yellow);
+}
+
+/* ── REVEAL ── */
+.reveal { opacity:0; transform:translateY(36px); transition:opacity .8s cubic-bezier(.23,1,.32,1), transform .8s cubic-bezier(.23,1,.32,1); }
+.reveal.up { opacity:1; transform:none; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .about-inner, .skills-layout, .contact-top { grid-template-columns:1fr; }
+  .projects-grid { grid-template-columns:1fr; }
+  .proj:nth-child(n) { grid-column:span 1; }
+  .steps-row { grid-template-columns:1fr 1fr; }
+  .steps-row::before { display:none; }
+  nav { top:12px; padding:8px 6px; }
+  nav a { padding:7px 14px; font-size:.72rem; }
+  section { padding:80px 20px 60px; }
+  .work-top { flex-direction:column; align-items:flex-start; gap:20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="c"></div>
+<div class="cur-r" id="cr"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero">home</a>
+  <a href="#about">about me</a>
+  <a href="#work">my work</a>
+  <a href="#skills">skills</a>
+  <a href="#contact">contact</a>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section id="hero">
+  <div class="hero-deco a">★</div>
+  <div class="hero-deco b" style="color:var(--blue)">✦</div>
+  <div class="hero-deco c" style="color:var(--red)">★</div>
+  <div class="hero-deco d" style="color:var(--blue)">★</div>
+  <div class="hero-deco e" style="color:var(--dark)">✦</div>
+
+  <div class="hero-tag">✦ First Year Graphic Design Student ✦</div>
+
+  <h1 class="hero-name">
+    Garima<br><span>Chhetry</span>
+  </h1>
+
+  <p class="hero-sub">— Graphic Designer · Illustrator · Visual Storyteller —</p>
+
+  <div class="hero-badges">
+    <span class="badge">🎨 Branding</span>
+    <span class="badge">✏️ Illustration</span>
+    <span class="badge">📱 UI / UX</span>
+    <span class="badge">🎬 Motion</span>
+    <span class="badge">📸 Editorial Design</span>
+  </div>
+
+  <div class="hero-scroll">
+    <span>scroll down</span>
+    <span>↓</span>
+  </div>
+</section>
+
+<!-- ═══════════ ABOUT ═══════════ -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-card reveal">
+      <div class="about-label">✦ meet the designer</div>
+      <div class="about-name-big">Garima<br>Chhetry</div>
+      <p class="about-text">
+        Hey! I'm a first-year graphic design student with a passion for bold visuals, expressive illustration, and designs that tell a story. I believe good design should feel like it couldn't have looked any other way.
+      </p>
+      <p class="about-text">
+        From branding to UI, I love exploring where function meets personality — the sweet spot where things become unforgettable.
+      </p>
+      <div class="about-pills">
+        <span class="pill">AAFT</span>
+        <span class="pill">Noida, India</span>
+        <span class="pill">Age 19</span>
+        <span class="pill">She / Her</span>
+        <span class="pill">Drawing 🖊</span>
+        <span class="pill">Music 🎵</span>
+      </div>
+    </div>
+
+    <div class="about-facts">
+      <div class="fact-card reveal">
+        <div class="fact-icon">🌅</div>
+        <div>
+          <div class="fact-title">Currently Learning</div>
+          <p class="fact-body">Mastering Adobe Suite, exploring 3D & motion design, and building a strong design vocabulary — one project at a time.</p>
+        </div>
+      </div>
+      <div class="fact-card reveal">
+        <div class="fact-icon">✨</div>
+        <div>
+          <div class="fact-title">Design Philosophy</div>
+          <p class="fact-body">Design should provoke a feeling before it explains an idea. If it makes you stop and stare, the job is done.</p>
+        </div>
+      </div>
+      <div class="fact-card reveal">
+        <div class="fact-icon">🎯</div>
+        <div>
+          <div class="fact-title">Looking For</div>
+          <p class="fact-body">Internship opportunities, collaborations, and creative challenges that push my skills to the next level.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ WORK ═══════════ -->
+<section id="work">
+  <div class="work-top reveal">
+    <h2 class="section-heading light">My<br><em>Work</em></h2>
+    <div class="work-filter">
+      <button class="filter-btn on">All</button>
+      <button class="filter-btn">Branding</button>
+      <button class="filter-btn">Magazine</button>
+  
+    </div>
+  </div>
+  <div class="projects-wrap">
+    <div class="projects-grid">
+
+      <div class="proj reveal">
+        <div class="proj-thumb">
+			<img src="image/yuna_thumb.png" style="width: 100%">
+          <span class="proj-thumb-label">Branding</span>
+          <div class="proj-hover"><div class="proj-hover-text"><a href="https://www.behance.net/gallery/250175185/Yuna" style="text-decoration: none;color: #FBB45E"> View Project →</a> </div></div>
+        </div>
+        <div class="proj-info">
+          <div class="proj-name">Yūna</div>
+          <div class="proj-meta">
+            <span class="proj-type">Brand · Visual Identity</span>
+            <span class="proj-year">2025</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj reveal">
+        <div class="proj-thumb">
+		<img src="image/neko_thumb.png" style="width: 100%">
+          <span class="proj-thumb-label">Branding</span>
+          <div class="proj-hover"><div class="proj-hover-text"><a href="https://www.behance.net/gallery/250175299/Neko" style="text-decoration: none;color: #FBB45E"> View Project →</a></div></div>
+        </div>
+        <div class="proj-info">
+          <div class="proj-name"> Neko </div>
+          <div class="proj-meta">
+            <span class="proj-type">Branding </span>
+            <span class="proj-year">2026</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj reveal">
+        <div class="proj-thumb">
+		<img src="image/lume_thumb.png" style="width: 100%">
+          <span class="proj-thumb-label">Branding</span>
+          <div class="proj-hover"><div class="proj-hover-text"><a href="https://www.behance.net/gallery/250174999/Lume" style="text-decoration: none;color: #FBB45E"> View Project →</a></div></div>
+        </div>
+        <div class="proj-info">
+          <div class="proj-name">Lume</div>
+          <div class="proj-meta">
+            <span class="proj-type">Branding </span>
+            <span class="proj-year">2026</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj reveal">
+        <div class="proj-thumb">
+			<img src="image/magazine_thumb.png" style="width: 100%">
+          <span class="proj-thumb-label">Magazine</span>
+          <div class="proj-hover"><div class="proj-hover-text"><a href="https://www.behance.net/gallery/250175453/Lumiere" style="text-decoration: none;color: #FBB45E"> View Project →</a></div></div>
+        </div>
+        <div class="proj-info">
+          <div class="proj-name">Lumiere</div>
+          <div class="proj-meta">
+            <span class="proj-type"> Editorial</span>
+            <span class="proj-year">2025</span>
+          </div>
+        </div>
+      </div>
+
+    
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SKILLS ═══════════ -->
+<section id="skills">
+  <div class="skills-inner">
+    <h2 class="section-heading reveal">What I<br><em>Know</em></h2>
+    <div class="skills-layout">
+      <div class="skill-group">
+
+        <div class="skill-row reveal">
+          <span class="skill-emoji">🎨</span>
+          <span class="skill-label">Visual Design</span>
+          <div class="skill-bar-wrap"><div class="skill-bar-fill" style="width:85%"></div></div>
+          <span class="skill-pct">85%</span>
+        </div>
+        <div class="skill-row reveal">
+          <span class="skill-emoji">✏️</span>
+          <span class="skill-label">Illustration</span>
+          <div class="skill-bar-wrap"><div class="skill-bar-fill" style="width:80%"></div></div>
+          <span class="skill-pct">80%</span>
+        </div>
+        <div class="skill-row reveal">
+          <span class="skill-emoji">🏷</span>
+          <span class="skill-label">Branding</span>
+          <div class="skill-bar-wrap"><div class="skill-bar-fill" style="width:75%"></div></div>
+          <span class="skill-pct">75%</span>
+        </div>
+        <div class="skill-row reveal">
+          <span class="skill-emoji">📱</span>
+          <span class="skill-label">UI / UX</span>
+          <div class="skill-bar-wrap"><div class="skill-bar-fill" style="width:70%"></div></div>
+          <span class="skill-pct">70%</span>
+        </div>
+
+      </div>
+      <div class="skill-group">
+
+        <div class="skill-row reveal">
+          <span class="skill-emoji">🎬</span>
+          <span class="skill-label">Motion Design</span>
+          <div class="skill-bar-wrap"><div class="skill-bar-fill" style="width:60%"></div></div>
+          <span class="skill-pct">60%</span>
+        </div>
+        <div class="skill-row reveal">
+          <span class="skill-emoji">🖼</span>
+          <span class="skill-label">Editorial</span>
+          <div class="skill-bar-wrap"><div class="skill-bar-fill" style="width:72%"></div></div>
+          <span class="skill-pct">72%</span>
+        </div>
+        <div class="skill-row reveal">
+          <span class="skill-emoji">📷</span>
+          <span class="skill-label">Photography</span>
+          <div class="skill-bar-wrap"><div class="skill-bar-fill" style="width:65%"></div></div>
+          <span class="skill-pct">65%</span>
+        </div>
+        <div class="skill-row reveal">
+          <span class="skill-emoji">🌐</span>
+          <span class="skill-label">Web Basics</span>
+          <div class="skill-bar-wrap"><div class="skill-bar-fill" style="width:50%"></div></div>
+          <span class="skill-pct">50%</span>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="tools-section reveal">
+      <h3>✦ Tools I Use</h3>
+      <div class="tools-grid">
+        <span class="tool-chip">Adobe Illustrator</span>
+        <span class="tool-chip">Adobe Photoshop</span>
+        <span class="tool-chip">Adobe InDesign</span>
+        <span class="tool-chip">Figma</span>
+        <span class="tool-chip">Procreate</span>
+        <span class="tool-chip">After Effects</span>
+        <span class="tool-chip">Blender</span>
+        <span class="tool-chip">Canva</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PROCESS ═══════════ -->
+<section id="process">
+  <div class="process-inner">
+    <h2 class="section-heading reveal">How I<br><em>Work</em></h2>
+    <div class="steps-row">
+      <div class="step reveal">
+        <div class="step-num">01</div>
+        <span class="step-emoji">🔍</span>
+        <div class="step-title">Research & Discover</div>
+        <p class="step-desc">Understanding the brief, the audience, and the problem space before touching a single pixel.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">02</div>
+        <span class="step-emoji">💡</span>
+        <div class="step-title">Ideate & Sketch</div>
+        <p class="step-desc">Filling pages with rough ideas, mood boards, and wild concepts — quantity first, quality next.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">03</div>
+        <span class="step-emoji">🎨</span>
+        <div class="step-title">Design & Refine</div>
+        <p class="step-desc">Bringing the strongest idea to life with intention — type, colour, layout, every detail matters.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">04</div>
+        <span class="step-emoji">🚀</span>
+        <div class="step-title">Deliver & Iterate</div>
+        <p class="step-desc">Presenting the work, gathering feedback, and making it even better with each iteration.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CONTACT ═══════════ -->
+<section id="contact">
+  <span class="contact-star-a" style="color:var(--yellow)">✦</span>
+  <span class="contact-star-b" style="color:var(--taupe)">★</span>
+  <div class="contact-inner">
+    <div class="contact-top">
+      <div class="reveal">
+        <h2 class="section-heading">Let's Make<br>Something<br><em>Great</em></h2>
+        <p class="contact-blurb" style="margin-top:24px">
+          Open to internships, freelance projects,<br>and creative collabs — let's chat! ✨
+        </p>
+        <div class="contact-links">
+          <a href="mailto:garima.ido8@gmail.com" class="contact-link">
+            <span class="contact-link-icon">📧</span>
+            <div>
+              <div class="contact-link-label">Email</div>
+              <div class="contact-link-val">garima.ido8@gmail.com</div>
+            </div>
+          </a>
+          <a href="#" class="contact-link">
+            <span class="contact-link-icon">🎨</span>
+            <div>
+              <div class="contact-link-label">Behance</div>
+              <div class="contact-link-val">behance.net/garimachhetry</div>
+            </div>
+          </a>
+          <a href="#" class="contact-link">
+            <span class="contact-link-icon">📸</span>
+            <div>
+              <div class="contact-link-label">Instagram</div>
+              <div class="contact-link-val">@garimachhetry</div>
+            </div>
+          </a>
+          <a href="#" class="contact-link">
+            <span class="contact-link-icon">💼</span>
+            <div>
+              <div class="contact-link-label">LinkedIn</div>
+              <div class="contact-link-val">Garima Chhetry</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-cta-card reveal">
+        <div class="cta-title">Got a project<br>in mind?</div>
+        <p class="cta-sub">I'd love to hear about it ✦</p>
+        <a href="mailto:garima.ido8@gmail.com" class="cta-btn">Say Hello →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-name">Garima Chhetry</span>
+  <p>© 2026 · Graphic Designer · Noida, India</p>
+  <p>Made with ♥ &amp; too much coffee ☕</p>
+</footer>
+
+<script>
+// Cursor
+const c = document.getElementById('c');
+const cr = document.getElementById('cr');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => {
+  mx=e.clientX; my=e.clientY;
+  c.style.transform=`translate(${mx-7}px,${my-7}px)`;
+});
+(function animCr(){
+  rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
+  cr.style.transform=`translate(${rx-19}px,${ry-19}px)`;
+  requestAnimationFrame(animCr);
+})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ cr.style.width='52px'; cr.style.height='52px'; cr.style.borderColor='var(--yellow)'; });
+  el.addEventListener('mouseleave',()=>{ cr.style.width='38px'; cr.style.height='38px'; });
+});
+
+// Nav active
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('nav a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{ if(window.scrollY>=s.offsetTop-120) cur=s.id; });
+  navLinks.forEach(a=>{ a.classList.toggle('active', a.getAttribute('href')==='#'+cur); });
+});
+
+// Scroll reveal
+const io = new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      e.target.style.transitionDelay=`${i*.08}s`;
+      e.target.classList.add('up');
+      io.unobserve(e.target);
+    }
+  });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// Filter buttons
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+  });
+});
+</script>
+</body>
+</html>
